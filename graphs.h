@@ -4,6 +4,9 @@
 
 #ifndef GRAPHPAA_GRAPHS_H
 #define GRAPHPAA_GRAPHS_H
+
+#include <list>
+
 namespace graph {
 
 

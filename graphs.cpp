@@ -1,7 +1,8 @@
 //
 // Created by vini on 03/11/23.
 //
-
+#include <list>
+#include <iostream>
 #include "graphs.h"
 
 namespace graph {
@@ -41,7 +42,7 @@ namespace graph {
     }
     void GraphList::printGraph() {
         for (int v = 0; v < numVertices; ++v){
-            std::cout << "\n Adjacency list of vertex "
+            std::cout << "Adjacency list of vertex "
             << v << "\n head";
             for (auto x: adjLists[v]){
                 std::cout << "->" << x;
