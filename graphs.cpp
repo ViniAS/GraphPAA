@@ -20,7 +20,7 @@ namespace graph {
         numEdges++;
     }
 
-    bool GraphList::hasEdge(int v1, int v2) {
+    bool GraphList::hasEdge(int v1, int v2) const {
         for (auto x: adjLists[v1]){
             if (x == v2){
                 return true;
@@ -40,7 +40,7 @@ namespace graph {
             return false;
         }
     }
-    void GraphList::printGraph() {
+    void GraphList::printGraph() const {
         for (int v = 0; v < numVertices; ++v){
             std::cout << "Adjacency list of vertex "
             << v << "\n head";
@@ -51,7 +51,7 @@ namespace graph {
         }
     }
 
-    bool GraphList::isSubGraph(GraphList &g) {
+    bool GraphList::isSubGraph(GraphList &g) const {
         if (g.numVertices > numVertices){
             return false;
         }
@@ -101,6 +101,15 @@ namespace graph {
         return adjLists;
     }
 
+    bool GraphList::isPath(const int path[], int n) const {
+        if (n < 2) return false;
+        for (int i = 0; i < n-1; ++i){
+            if (!hasEdge(path[i], path[i+1])){
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 } // graph

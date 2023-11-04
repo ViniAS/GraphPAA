@@ -20,15 +20,15 @@ namespace graph {
 
         ~GraphList();
 
-        bool hasEdge(int v1, int v2);
+        bool hasEdge(int v1, int v2) const;
 
         void addEdge(int v1, int v2);
 
         bool removeEdge(int v1, int v2);
 
-        void printGraph();
+        void printGraph() const;
 
-        bool isSubGraph(GraphList &g);
+        bool isSubGraph(GraphList &g) const;
 
         int getNumVertices() const;
 
@@ -41,6 +41,8 @@ namespace graph {
         int getMinDegree() const;
 
         int getMaxDegree() const;
+
+        bool isPath(const int path[], int n) const;
     };
 
 } // graph
