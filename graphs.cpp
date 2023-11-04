@@ -130,5 +130,28 @@ namespace graph {
         return true;
     }
 
+    void GraphList::dfs(int *preOrder) const {
+        int counter = 0;
+        for (int v = 0; v < numVertices; v++){
+            preOrder[v] = -1;
+        }
+        for (int v = 0; v < numVertices; v++){
+            if (preOrder[v] == -1){
+                dfsVisit(v, preOrder, counter);
+            }
+        }
+    }
+
+    void GraphList::dfsVisit(int v1, int *preOrder, int &count) const {
+        preOrder[v1] = count++;
+        for (auto x: adjLists[v1]){
+            if (preOrder[x] == -1){
+                dfsVisit(x, preOrder, count);
+            }
+        }
+    }
+
+
+
 
 } // graph

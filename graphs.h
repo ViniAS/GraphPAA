@@ -43,7 +43,12 @@ namespace graph {
         int getMaxDegree() const;
 
         bool isPath(const int path[], int n, bool & hasCycle) const;
+
         bool isPath(const int path[], int n) const;
+
+        void dfs(int * preOrder) const;
+
+        void dfsVisit(int v1, int * preOrder, int & count) const;
     };
 
 } // graph

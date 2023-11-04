@@ -83,6 +83,28 @@ TEST(GraphListCycle, isPath){
     EXPECT_TRUE(hasCycle);
 }
 
+TEST(GraphListDFS, dfs){
+    graph::GraphList g(6);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1,3);
+    g.addEdge(1,4);
+    g.addEdge(2,4);
+    g.addEdge(3,4);
+    g.addEdge(4,5);
+    g.addEdge(4,2);
+    int v[g.getNumVertices()];
+    g.dfs(v);
+
+    EXPECT_EQ(v[0], 0);
+    EXPECT_EQ(v[1], 1);
+    EXPECT_EQ(v[2], 5);
+    EXPECT_EQ(v[3], 2);
+    EXPECT_EQ(v[4], 3);
+    EXPECT_EQ(v[5], 4);
+    EXPECT_EQ(v[5], 4);
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
