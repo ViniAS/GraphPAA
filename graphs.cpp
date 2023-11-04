@@ -110,6 +110,25 @@ namespace graph {
         }
         return true;
     }
+    bool GraphList::isPath(const int *path, int n, bool & hasCycle) const {
+        if (n < 2) return false;
+        bool visited[getNumVertices()];
+        bool noCycle = true;
+        for (int i = 0; i < getNumVertices(); ++i) visited[i] = false;
+        visited[path[0]] = true;
+        for (int i = 0; i < n-1; ++i){
+            if (!hasEdge(path[i], path[i+1])){
+                return false;
+            }
+            if (visited[path[i+1]]){
+                hasCycle = true;
+                noCycle = false;
+            }
+            visited[path[i+1]] = true;
+        }
+        if (noCycle) hasCycle = false;
+        return true;
+    }
 
 
 } // graph

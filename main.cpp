@@ -60,6 +60,28 @@ TEST(GraphListIsPathTest, isPath) {
     g.addEdge(1, 2);
     EXPECT_TRUE(g.isPath(Vs2, 3));
 }
+TEST(GraphListCycle, isPath){
+    graph::GraphList g(4);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 2);
+    int Vs[3] = {0, 1, 2};
+    bool hasCycle;
+    EXPECT_TRUE(g.isPath(Vs, 3, hasCycle));
+    EXPECT_FALSE(hasCycle);
+    int Vs2[2] = {0, 3};
+    EXPECT_FALSE(g.isPath(Vs2, 2, hasCycle));
+    EXPECT_FALSE(hasCycle);
+    int Vs3[3] = {0, 1, 0};
+    g.addEdge(1,0);
+    EXPECT_TRUE(g.isPath(Vs3, 3, hasCycle));
+    EXPECT_TRUE(hasCycle);
+    g.addEdge(3,1);
+    g.addEdge(2,3);
+    int Vs4[5] = {0, 1, 2, 3,1};
+    EXPECT_TRUE(g.isPath(Vs4, 5, hasCycle));
+    EXPECT_TRUE(hasCycle);
+}
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

@@ -42,6 +42,7 @@ namespace graph {
 
         int getMaxDegree() const;
 
+        bool isPath(const int path[], int n, bool & hasCycle) const;
         bool isPath(const int path[], int n) const;
     };
 
