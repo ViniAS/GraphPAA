@@ -16,11 +16,11 @@ namespace graph {
         std::list<int> *adjLists;
         int numEdges;
     public:
-        GraphList(int numVertices);
+        explicit GraphList(int numVertices);
 
         ~GraphList();
 
-        bool hasEdge(int v1, int v2) const;
+        [[nodiscard]] bool hasEdge(int v1, int v2) const;
 
         void addEdge(int v1, int v2);
 
@@ -28,28 +28,31 @@ namespace graph {
 
         void printGraph() const;
 
-        bool isSubGraph(GraphList &g) const;
+        [[nodiscard]] bool isSubGraph(GraphList &g) const;
 
-        int getNumVertices() const;
+        [[nodiscard]] int getNumVertices() const;
 
-        int getNumEdges() const;
+        [[nodiscard]] int getNumEdges() const;
 
-        std::list<int> *getAdjLists() const;
+        [[nodiscard]] std::list<int> *getAdjLists() const;
 
-        int getDegree(int v) const;
+        [[nodiscard]] unsigned long getDegree(int v) const;
 
-        int getMinDegree() const;
+        [[nodiscard]] unsigned long getMinDegree() const;
 
-        int getMaxDegree() const;
+        [[nodiscard]] unsigned long getMaxDegree() const;
 
-        bool isPath(const int path[], int n, bool & hasCycle) const;
+        [[nodiscard]] bool isPath(const int path[], int n, bool & hasCycle) const;
 
-        bool isPath(const int path[], int n) const;
+        [[nodiscard]] bool isPath(const int path[], int n) const;
 
-        void dfs(int * preOrder) const;
+        void dfs(int * preOrder, int* postOrder,
+                 int * parents) const;
 
-        void dfsVisit(int v1, int * preOrder, int & counter) const;
+        void dfsVisit(int v1, int * preOrder, int * postOrder,
+                      int & preCounter, int & postCounter,int * parents) const;
     };
+
 
 } // graph
 

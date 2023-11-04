@@ -3,6 +3,7 @@
 //
 #include <list>
 #include <iostream>
+#include <algorithm>
 #include <stack>
 #include "graphs.h"
 
@@ -22,16 +23,12 @@ namespace graph {
     }
 
     bool GraphList::hasEdge(int v1, int v2) const {
-        for (auto x: adjLists[v1]){
-            if (x == v2){
-                return true;
-            }
-        }
-        return false;
+        return std::any_of(adjLists[v1].begin(), adjLists[v1].end(),
+                           [v2](int x) { return x == v2; });
     }
 
     bool GraphList::removeEdge(int v1, int v2) {
-        int initSize = adjLists[v1].size();
+        unsigned long initSize = adjLists[v1].size();
         adjLists[v1].remove(v2);
 
         if(initSize != adjLists[v1].size()){
@@ -74,12 +71,12 @@ namespace graph {
         return numEdges;
     }
 
-    int GraphList::getDegree(int v) const {
+    unsigned long GraphList::getDegree(int v) const {
         return adjLists[v].size();
     }
 
-    int GraphList::getMaxDegree() const {
-        int max = 0;
+    unsigned long GraphList::getMaxDegree() const {
+        unsigned long max = 0;
         for (int v = 0; v < numVertices; ++v){
             if (getDegree(v) > max){
                 max = getDegree(v);
@@ -88,8 +85,8 @@ namespace graph {
         return max;
     }
 
-    int GraphList::getMinDegree() const {
-        int min = numVertices;
+    unsigned long GraphList::getMinDegree() const {
+        unsigned long min = numVertices;
         for (int v = 0; v < numVertices; ++v){
             if (getDegree(v) < min){
                 min = getDegree(v);
@@ -131,37 +128,44 @@ namespace graph {
         return true;
     }
 
-    void GraphList::dfs(int *preOrder) const {
-        int counter = 0;
+    void GraphList::dfs(int *preOrder, int* postOrder,
+                        int *parents) const {
+        int preCounter = 0;
+        int postCounter = 0;
+
         for (int v = 0; v < numVertices; v++){
             preOrder[v] = -1;
+            parents[v] = -1;
+            postOrder[v] = -1;
         }
         for (int v = 0; v < numVertices; v++){
             if (preOrder[v] == -1){
-                dfsVisit(v, preOrder, counter);
+                parents[v] = v;
+                dfsVisit(v, preOrder, postOrder,
+                         preCounter, postCounter, parents);
             }
         }
     }
 
-    void GraphList::dfsVisit(int v1, int *preOrder, int & counter) const {
+    void GraphList::dfsVisit(int v1, int *preOrder, int * postOrder,
+                             int & preCounter, int & postCounter, int * parents) const {
         std::stack<int> stackVertex;
         stackVertex.push(v1);
         while (!stackVertex.empty()){
             int v = stackVertex.top();
             stackVertex.pop();
             if (preOrder[v] == -1) {
-                preOrder[v] = counter++;
+                preOrder[v] = preCounter++;
                 for (auto x: adjLists[v]){
+                    parents[x] = v;
                     if (preOrder[x] == -1){
                         stackVertex.push(x);
                     }
                 }
-
+                postOrder[v] = postCounter++;
             }
-
         }
     }
-
 
 
 
