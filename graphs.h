@@ -48,7 +48,7 @@ namespace graph {
 
         void dfs(int * preOrder) const;
 
-        void dfsVisit(int v1, int * preOrder, int & count) const;
+        void dfsVisit(int v1, int * preOrder, int & counter) const;
     };
 
 } // graph

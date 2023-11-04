@@ -3,6 +3,7 @@
 //
 #include <list>
 #include <iostream>
+#include <stack>
 #include "graphs.h"
 
 namespace graph {
@@ -142,12 +143,22 @@ namespace graph {
         }
     }
 
-    void GraphList::dfsVisit(int v1, int *preOrder, int &count) const {
-        preOrder[v1] = count++;
-        for (auto x: adjLists[v1]){
-            if (preOrder[x] == -1){
-                dfsVisit(x, preOrder, count);
+    void GraphList::dfsVisit(int v1, int *preOrder, int & counter) const {
+        std::stack<int> stackVertex;
+        stackVertex.push(v1);
+        while (!stackVertex.empty()){
+            int v = stackVertex.top();
+            stackVertex.pop();
+            if (preOrder[v] == -1) {
+                preOrder[v] = counter++;
+                for (auto x: adjLists[v]){
+                    if (preOrder[x] == -1){
+                        stackVertex.push(x);
+                    }
+                }
+
             }
+
         }
     }
 
