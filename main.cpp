@@ -1,6 +1,6 @@
 #include <iostream>
 #include <gtest/gtest.h>
-#include "graphs.h"
+#include "GraphList.h"
 #include <list>
 using namespace graph;
 
@@ -83,7 +83,7 @@ TEST(GraphListCycle, isPath){
     EXPECT_TRUE(hasCycle);
 }
 
-TEST(GraphlistTest, DFS) {
+TEST(GraphListTest, DFS) {
     graph::GraphList g(5);
     g.addEdge(0, 1);
     g.addEdge(0, 2);

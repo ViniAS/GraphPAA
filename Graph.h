@@ -2,11 +2,12 @@
 // Created by vini on 03/11/23.
 //
 
-#ifndef GRAPHPAA_GRAPHS_H
-#define GRAPHPAA_GRAPHS_H
+#ifndef GRAPHPAA_GRAPH_H
+#define GRAPHPAA_GRAPH_H
 
 #include <list>
 #include <vector>
+
 
 namespace graph {
     class Graph {
@@ -24,7 +25,7 @@ namespace graph {
 
         virtual void printGraph() const = 0;
 
-        [[nodiscard]] virtual std::vector<int> getNeighbors(int v) const = 0;
+        [[nodiscard]] virtual std::list<int> getNeighbors(int v) const = 0;
 
         [[nodiscard]] int getNumVertices() const;
 
@@ -46,30 +47,9 @@ namespace graph {
                       int & preCounter, int & postCounter,int * parents) const;
     };
 
-    class GraphList: public Graph{
-    private:
-        std::list<int> *adjLists;
-    public:
-        explicit GraphList(int numVertices);
 
-        ~GraphList();
-
-        [[nodiscard]] bool hasEdge(int v1, int v2) const override;
-
-        void addEdge(int v1, int v2) override;
-
-        bool removeEdge(int v1, int v2) override;
-
-        void printGraph() const override;
-
-        [[nodiscard]] std::vector<int> getNeighbors(int v) const override;
-
-        [[nodiscard]] bool isSubGraph(GraphList &g) const;
-
-        [[nodiscard]] std::list<int> *getAdjLists() const;
-    };
 
 
 } // graph
 
-#endif //GRAPHPAA_GRAPHS_H
+#endif //GRAPHPAA_GRAPH_H
