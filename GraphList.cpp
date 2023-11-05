@@ -51,7 +51,7 @@ namespace graph {
     }
 
     std::list<int> GraphList::getNeighbors(int v)  const {
-        return {adjLists[v].begin(), adjLists[v].end()};
+        return adjLists[v];
     }
 
     bool GraphList::isSubGraph(GraphList &g) const {
