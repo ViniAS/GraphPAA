@@ -6,51 +6,67 @@
 #define GRAPHPAA_GRAPHS_H
 
 #include <list>
+#include <vector>
 
 namespace graph {
-
-
-    class GraphList {
-    private:
+    class Graph {
+    protected:
         int numVertices;
-        std::list<int> *adjLists;
         int numEdges;
     public:
-        explicit GraphList(int numVertices);
+        explicit Graph(int numVertices);
 
-        ~GraphList();
+        [[nodiscard]] virtual bool hasEdge(int v1, int v2) const = 0;
 
-        [[nodiscard]] bool hasEdge(int v1, int v2) const;
+        virtual void addEdge(int v1, int v2) = 0;
 
-        void addEdge(int v1, int v2);
+        virtual bool removeEdge(int v1, int v2) = 0;
 
-        bool removeEdge(int v1, int v2);
+        virtual void printGraph() const = 0;
 
-        void printGraph() const;
-
-        [[nodiscard]] bool isSubGraph(GraphList &g) const;
+        [[nodiscard]] virtual std::vector<int> getNeighbors(int v) const = 0;
 
         [[nodiscard]] int getNumVertices() const;
 
         [[nodiscard]] int getNumEdges() const;
 
-        [[nodiscard]] std::list<int> *getAdjLists() const;
-
         [[nodiscard]] unsigned long getDegree(int v) const;
-
-        [[nodiscard]] unsigned long getMinDegree() const;
 
         [[nodiscard]] unsigned long getMaxDegree() const;
 
-        [[nodiscard]] bool isPath(const int path[], int n, bool & hasCycle) const;
+        [[nodiscard]] unsigned long getMinDegree() const;
 
         [[nodiscard]] bool isPath(const int path[], int n) const;
 
-        void dfs(int * preOrder, int* postOrder,
-                 int * parents) const;
+        [[nodiscard]] bool isPath(const int path[], int n, bool & hasCycle) const;
+
+        void dfs(int * preOrder, int* postOrder,int * parents) const;
 
         void dfsVisit(int v1, int * preOrder, int * postOrder,
                       int & preCounter, int & postCounter,int * parents) const;
+    };
+
+    class GraphList: public Graph{
+    private:
+        std::list<int> *adjLists;
+    public:
+        explicit GraphList(int numVertices);
+
+        ~GraphList();
+
+        [[nodiscard]] bool hasEdge(int v1, int v2) const override;
+
+        void addEdge(int v1, int v2) override;
+
+        bool removeEdge(int v1, int v2) override;
+
+        void printGraph() const override;
+
+        [[nodiscard]] std::vector<int> getNeighbors(int v) const override;
+
+        [[nodiscard]] bool isSubGraph(GraphList &g) const;
+
+        [[nodiscard]] std::list<int> *getAdjLists() const;
     };
 
 

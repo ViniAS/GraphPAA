@@ -5,11 +5,14 @@
 #include <iostream>
 #include <algorithm>
 #include <stack>
+#include <vector>
 #include "graphs.h"
 
 namespace graph {
-    GraphList::GraphList(int numVertices): numVertices(numVertices),
-    numEdges(0){
+    Graph::Graph(int numVertices): numVertices(numVertices),
+    numEdges(0){}
+
+    GraphList::GraphList(int numVertices) : Graph(numVertices){
         adjLists = new std::list<int>[numVertices];
     }
 
@@ -49,12 +52,16 @@ namespace graph {
         }
     }
 
+    std::vector<int> GraphList::getNeighbors(int v)  const {
+        return {adjLists[v].begin(), adjLists[v].end()};
+    }
+
     bool GraphList::isSubGraph(GraphList &g) const {
         if (g.numVertices > numVertices){
             return false;
         }
         for (int v = 0; v < g.numVertices; ++v){
-            for (auto x: g.adjLists[v]){
+            for (int x: g.adjLists[v]){
                 if (!hasEdge(v, x)){
                     return false;
                 }
@@ -63,19 +70,19 @@ namespace graph {
         return true;
     }
 
-    int GraphList::getNumVertices() const {
+    int Graph::getNumVertices() const {
         return numVertices;
     }
 
-    int GraphList::getNumEdges() const {
+    int Graph::getNumEdges() const {
         return numEdges;
     }
 
-    unsigned long GraphList::getDegree(int v) const {
-        return adjLists[v].size();
+    unsigned long Graph::getDegree(int v) const {
+        return getNeighbors(v).size();
     }
 
-    unsigned long GraphList::getMaxDegree() const {
+    unsigned long Graph::getMaxDegree() const {
         unsigned long max = 0;
         for (int v = 0; v < numVertices; ++v){
             if (getDegree(v) > max){
@@ -85,7 +92,7 @@ namespace graph {
         return max;
     }
 
-    unsigned long GraphList::getMinDegree() const {
+    unsigned long Graph::getMinDegree() const {
         unsigned long min = numVertices;
         for (int v = 0; v < numVertices; ++v){
             if (getDegree(v) < min){
@@ -99,7 +106,7 @@ namespace graph {
         return adjLists;
     }
 
-    bool GraphList::isPath(const int path[], int n) const {
+    bool Graph::isPath(const int path[], int n) const {
         if (n < 2) return false;
         for (int i = 0; i < n-1; ++i){
             if (!hasEdge(path[i], path[i+1])){
@@ -108,7 +115,8 @@ namespace graph {
         }
         return true;
     }
-    bool GraphList::isPath(const int *path, int n, bool & hasCycle) const {
+
+    bool Graph::isPath(const int *path, int n, bool & hasCycle) const {
         if (n < 2) return false;
         bool visited[getNumVertices()];
         bool noCycle = true;
@@ -128,7 +136,7 @@ namespace graph {
         return true;
     }
 
-    void GraphList::dfs(int *preOrder, int* postOrder,
+    void Graph::dfs(int *preOrder, int* postOrder,
                         int *parents) const {
         int preCounter = 0;
         int postCounter = 0;
@@ -147,7 +155,7 @@ namespace graph {
         }
     }
 
-    void GraphList::dfsVisit(int v1, int *preOrder, int * postOrder,
+    void Graph::dfsVisit(int v1, int *preOrder, int * postOrder,
                              int & preCounter, int & postCounter, int * parents) const {
         std::stack<int> stackVertex;
         stackVertex.push(v1);
@@ -156,7 +164,7 @@ namespace graph {
             stackVertex.pop();
             if (preOrder[v] == -1) {
                 preOrder[v] = preCounter++;
-                for (auto x: adjLists[v]){
+                for (auto x: getNeighbors(v)){
                     parents[x] = v;
                     if (preOrder[x] == -1){
                         stackVertex.push(x);
