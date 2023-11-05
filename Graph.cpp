@@ -20,10 +20,6 @@ namespace graph {
         return numEdges;
     }
 
-    unsigned long Graph::getDegree(int v) const {
-        return getNeighbors(v).size();
-    }
-
     unsigned long Graph::getMaxDegree() const {
         unsigned long max = 0;
         for (int v = 0; v < numVertices; ++v){
@@ -49,6 +45,20 @@ namespace graph {
         for (int i = 0; i < n-1; ++i){
             if (!hasEdge(path[i], path[i+1])){
                 return false;
+            }
+        }
+        return true;
+    }
+    
+    bool Graph::isSubGraph(Graph &g) const {
+        if (g.getNumVertices() > numVertices) {
+            return false;
+        }
+        for (int v = 0; v < g.getNumVertices(); ++v) {
+            for (int x: g.getNeighbors(v)) {
+                if (!hasEdge(v, x)) {
+                    return false;
+                }
             }
         }
         return true;

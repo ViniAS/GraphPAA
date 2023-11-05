@@ -54,18 +54,8 @@ namespace graph {
         return adjLists[v];
     }
 
-    bool GraphList::isSubGraph(GraphList &g) const {
-        if (g.numVertices > numVertices){
-            return false;
-        }
-        for (int v = 0; v < g.numVertices; ++v){
-            for (int x: g.adjLists[v]){
-                if (!hasEdge(v, x)){
-                    return false;
-                }
-            }
-        }
-        return true;
+    unsigned long GraphList::getDegree(int v) const {
+        return getNeighbors(v).size();
     }
 
     std::list<int> *GraphList::getAdjLists() const {

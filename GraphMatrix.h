@@ -2,18 +2,19 @@
 // Created by vini on 05/11/23.
 //
 
-#ifndef GRAPHPAA_GRAPHLIST_H
-#define GRAPHPAA_GRAPHLIST_H
+#ifndef GRAPHPAA_GRAPHMATRIX_H
+#define GRAPHPAA_GRAPHMATRIX_H
 #include "Graph.h"
+
 namespace graph {
 
-    class GraphList: public Graph{
+    class GraphMatrix: public Graph{
     private:
-        std::list<int> *adjLists;
+        bool **adjMatrix;
     public:
-        explicit GraphList(int numVertices);
+        explicit GraphMatrix(int numVertices);
 
-        ~GraphList() override;
+        ~GraphMatrix() override;
 
         [[nodiscard]] bool hasEdge(int v1, int v2) const override;
 
@@ -27,9 +28,10 @@ namespace graph {
 
         [[nodiscard]] unsigned long getDegree(int v) const override;
 
-        [[nodiscard]] std::list<int> *getAdjLists() const;
+        [[nodiscard]] bool** getAdjMatrix() const;
+
     };
 
 } // graph
 
-#endif //GRAPHPAA_GRAPHLIST_H
+#endif //GRAPHPAA_GRAPHMATRIX_H
