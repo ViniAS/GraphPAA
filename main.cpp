@@ -342,6 +342,51 @@ TEST(GraphMatrixTest, isTopological){
     EXPECT_FALSE(g2.isTopological());
 }
 
+TEST(GraphListTest, hasCycle){
+    graph::GraphList g(7);
+    g.addEdge(0,3);
+    g.addEdge(0,4);
+    g.addEdge(0,6);
+    g.addEdge(1,2);
+    g.addEdge(1,4);
+    g.addEdge(1,5);
+    g.addEdge(2,3);
+    g.addEdge(2,4);
+    g.addEdge(4,6);
+    g.addEdge(5,6);
+    EXPECT_FALSE(g.hasCycle());
+
+    graph::GraphList g2(5);
+    g2.addEdge(0,1);
+    g2.addEdge(0,2);
+    g2.addEdge(1,2);
+    g2.addEdge(2,3);
+    g2.addEdge(3,0);
+    EXPECT_TRUE(g2.hasCycle());
+}
+
+TEST(GraphMatrixTest, hasCycle){
+    graph::GraphMatrix g(7);
+    g.addEdge(0,3);
+    g.addEdge(0,4);
+    g.addEdge(0,6);
+    g.addEdge(1,2);
+    g.addEdge(1,4);
+    g.addEdge(1,5);
+    g.addEdge(2,3);
+    g.addEdge(2,4);
+    g.addEdge(4,6);
+    g.addEdge(5,6);
+    EXPECT_FALSE(g.hasCycle());
+
+    graph::GraphMatrix g2(5);
+    g2.addEdge(0,1);
+    g2.addEdge(0,2);
+    g2.addEdge(1,2);
+    g2.addEdge(2,3);
+    g2.addEdge(3,0);
+    EXPECT_TRUE(g2.hasCycle());
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

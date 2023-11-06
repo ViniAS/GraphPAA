@@ -55,6 +55,8 @@ namespace graph {
         [[nodiscard]] bool canReach(int v1, int v2) const;
 
         [[nodiscard]] bool isTopological() const;
+
+        [[nodiscard]] bool hasCycle() const;
     };
 
 

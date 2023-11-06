@@ -111,17 +111,21 @@ namespace graph {
 
         while (!stackVertex.empty()){
             v = stackVertex.top();
-            stackVertex.pop();
+
             if (preOrder[v] == -1) {
                 preOrder[v] = preCounter++;
-                for (auto x: getNeighbors(v)){
-                    parents[x] = v;
-                    if (preOrder[x] == -1){
+                for (auto x: getNeighbors(v)) {
+                    if (preOrder[x] == -1) {
+                        parents[x] = v;
                         stackVertex.push(x);
                     }
                 }
+            }
+            else{
+                stackVertex.pop();
                 postOrder[v] = postCounter++;
             }
+
         }
     }
 
@@ -152,6 +156,20 @@ namespace graph {
                 if (x < i) return false;
         }
         return true;
+   }
+
+   bool Graph::hasCycle() const {
+        int preOrder[getNumVertices()];
+        int postOrder[getNumVertices()];
+        int parents[getNumVertices()];
+        dfs(preOrder, postOrder, parents);
+        
+        for (int v1 = 0; v1 < getNumVertices(); v1++) {
+            for (int v2: getNeighbors(v1))
+                if (preOrder[v1] > preOrder[v2] && postOrder[v1] < postOrder[v2])
+                    return true;
+        }
+        return false;
    }
 
 } // graph
