@@ -256,8 +256,6 @@ TEST(GraphMatrixTest, GetNeighbors) {
 
     std::list<int> neighbors = g.getNeighbors(0);
     g.printGraph();
-    for(int x: neighbors) std::cout<<x<<' ';
-    std::cout<<std::endl;
 
     EXPECT_EQ(neighbors.size(), 2);
     EXPECT_TRUE(std::find(neighbors.begin(), neighbors.end(), 1) != neighbors.end());
