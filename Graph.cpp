@@ -171,6 +171,7 @@ namespace graph {
         }
         return false;
    }
+
     void Graph::bfs(int v, int *order, int *parent) const {
         std::queue<int> vertexQueue;
         int counter = 0;
@@ -183,7 +184,15 @@ namespace graph {
         vertexQueue.push(v);
 
         while (!vertexQueue.empty()){
-            
+            int v1 = vertexQueue.front();
+            vertexQueue.pop();
+            for (int v2: getNeighbors(v1)){
+                if (order[v2] == -1){
+                    order[v2] = counter++;
+                    parent[v2] = v1;
+                    vertexQueue.push(v2);
+                }
+            }
         }
     }
 } // graph

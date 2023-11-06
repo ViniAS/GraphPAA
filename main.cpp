@@ -390,6 +390,29 @@ TEST(GraphMatrixTest, hasCycle){
     g2.addEdge(3,0);
     EXPECT_TRUE(g2.hasCycle());
 }
+
+TEST(GraphListTest, BFS) {
+    // Step 1: Create a graph with a known structure.
+    graph::GraphList g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+
+    // Step 2: Call the bfs method on the graph.
+    int order[5];
+    int parent[5];
+    g.bfs(0, order, parent);
+
+    // Step 3: Check that the order and parent arrays are as expected.
+    int expectedOrder[5] = {0, 1, 2, 3, 4};
+    int expectedParent[5] = {0, 0, 0, 1, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(order[i], expectedOrder[i]);
+        EXPECT_EQ(parent[i], expectedParent[i]);
+    }
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
