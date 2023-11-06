@@ -245,6 +245,9 @@ TEST(GraphMatrixTest, DFS) {
         EXPECT_FALSE(visited2[i]);
         visited2[i] = true;
     }
+
+    //Check that preOrder and postOrder are different
+    for (int i = 0; i < 5; i++) EXPECT_NE(preOrder[i], postOrder[i]);
 }
 
 TEST(GraphMatrixTest, GetNeighbors) {

@@ -57,6 +57,8 @@ namespace graph {
         [[nodiscard]] bool isTopological() const;
 
         [[nodiscard]] bool hasCycle() const;
+
+        void bfs(int v, int * order, int * parent) const;
     };
 
 

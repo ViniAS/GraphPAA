@@ -1,11 +1,11 @@
 //
 // Created by vini on 03/11/23.
 //
-#include <list>
+
 #include <iostream>
 #include <algorithm>
 #include <stack>
-#include <vector>
+#include <queue>
 #include "Graph.h"
 
 namespace graph {
@@ -171,5 +171,19 @@ namespace graph {
         }
         return false;
    }
+    void Graph::bfs(int v, int *order, int *parent) const {
+        std::queue<int> vertexQueue;
+        int counter = 0;
+        for (int i=0; i< getNumVertices(); i++){
+            order[i] = -1;
+            parent[i] = -1;
+        }
+        order[v] = counter++;
+        parent[v] = v;
+        vertexQueue.push(v);
 
+        while (!vertexQueue.empty()){
+            
+        }
+    }
 } // graph
