@@ -17,7 +17,7 @@ namespace graph {
 
         [[nodiscard]] bool hasEdge(int v1, int v2) const override;
 
-        void addEdge(int v1, int v2) override;
+        bool addEdge(int v1, int v2) override;
 
         bool removeEdge(int v1, int v2) override;
 

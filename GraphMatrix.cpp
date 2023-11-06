@@ -27,11 +27,13 @@ namespace graph {
         return adjMatrix[v1][v2];
     }
 
-    void GraphMatrix::addEdge(int v1, int v2) {
+    bool GraphMatrix::addEdge(int v1, int v2) {
         if (!hasEdge(v1,v2)) {
             adjMatrix[v1][v2]  = true;
             numEdges++;
+            return true;
         }
+        return false;
     }
 
     bool GraphMatrix::removeEdge(int v1, int v2) {

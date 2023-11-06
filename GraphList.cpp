@@ -18,9 +18,13 @@ namespace graph {
         delete[] adjLists;
     }
 
-    void GraphList::addEdge(int v1, int v2) {
+    bool GraphList::addEdge(int v1, int v2) {
+        for (auto x: adjLists[v1])
+            if (x == v2) return false;
+
         adjLists[v1].push_back(v2);
         numEdges++;
+        return true;
     }
 
     bool GraphList::hasEdge(int v1, int v2) const {

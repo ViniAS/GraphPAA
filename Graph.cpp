@@ -22,7 +22,7 @@ namespace graph {
 
     unsigned long Graph::getMaxDegree() const {
         unsigned long max = 0;
-        for (int v = 0; v < numVertices; ++v){
+        for (int v = 0; v < getNumVertices(); ++v){
             if (getDegree(v) > max){
                 max = getDegree(v);
             }
@@ -31,8 +31,8 @@ namespace graph {
     }
 
     unsigned long Graph::getMinDegree() const {
-        unsigned long min = numVertices;
-        for (int v = 0; v < numVertices; ++v){
+        unsigned long min = getNumVertices();
+        for (int v = 0; v < getNumVertices(); ++v){
             if (getDegree(v) < min){
                 min = getDegree(v);
             }
@@ -89,12 +89,12 @@ namespace graph {
         int preCounter = 0;
         int postCounter = 0;
 
-        for (int v = 0; v < numVertices; v++){
+        for (int v = 0; v < getNumVertices(); v++){
             preOrder[v] = -1;
             parents[v] = -1;
             postOrder[v] = -1;
         }
-        for (int v = 0; v < numVertices; v++){
+        for (int v = 0; v < getNumVertices(); v++){
             if (preOrder[v] == -1){
                 parents[v] = v;
                 dfsVisit(v, preOrder, postOrder,
@@ -146,5 +146,12 @@ namespace graph {
         }
     }
 
+    bool Graph::isTopological() const {
+        for (int i = 0; i < getNumVertices(); i++) {
+            for (int x: getNeighbors(i))
+                if (x < i) return false;
+        }
+        return true;
+   }
 
 } // graph

@@ -26,7 +26,7 @@ namespace graph {
 
         [[nodiscard]] virtual bool hasEdge(int v1, int v2) const = 0;
 
-        virtual void addEdge(int v1, int v2) = 0;
+        virtual bool addEdge(int v1, int v2) = 0;
 
         virtual bool removeEdge(int v1, int v2) = 0;
 
@@ -53,6 +53,8 @@ namespace graph {
         void dfs(int * preOrder, int* postOrder,int * parents) const;
 
         [[nodiscard]] bool canReach(int v1, int v2) const;
+
+        [[nodiscard]] bool isTopological() const;
     };
 
 
