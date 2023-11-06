@@ -107,8 +107,10 @@ namespace graph {
                              int & preCounter, int & postCounter, int * parents) const {
         std::stack<int> stackVertex;
         stackVertex.push(v1);
+        int v;
+
         while (!stackVertex.empty()){
-            int v = stackVertex.top();
+            v = stackVertex.top();
             stackVertex.pop();
             if (preOrder[v] == -1) {
                 preOrder[v] = preCounter++;
@@ -123,6 +125,26 @@ namespace graph {
         }
     }
 
+    bool Graph::canReach(int v1, int v2) const {
+        bool visited[getNumVertices()];
+        for (int v=0; v < getNumVertices(); v++) visited[v] = false;
+
+        reachRecursive(v1, visited);
+        return visited[v2];
+    }
+
+    void Graph::reachRecursive(int v1, bool *visited) const {
+        std::stack<int> stackVertex;
+        stackVertex.push(v1);
+        int v;
+        while (!stackVertex.empty()){
+            v = stackVertex.top();
+            stackVertex.pop();
+            visited[v] = true;
+            for (int v2 = 0; v2 < getNumVertices(); v2++)
+                if(hasEdge(v,v2) && !visited[v2]) stackVertex.push(v2);
+        }
+    }
 
 
 } // graph

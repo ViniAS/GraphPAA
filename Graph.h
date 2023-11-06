@@ -14,6 +14,11 @@ namespace graph {
     protected:
         int numVertices;
         int numEdges;
+
+        void dfsVisit(int v1, int * preOrder, int * postOrder,
+                      int & preCounter, int & postCounter,int * parents) const;
+
+        void reachRecursive(int v1, bool * visited) const;
     public:
         explicit Graph(int numVertices);
 
@@ -47,8 +52,7 @@ namespace graph {
 
         void dfs(int * preOrder, int* postOrder,int * parents) const;
 
-        void dfsVisit(int v1, int * preOrder, int * postOrder,
-                      int & preCounter, int & postCounter,int * parents) const;
+        [[nodiscard]] bool canReach(int v1, int v2) const;
     };
 
 

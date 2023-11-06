@@ -255,7 +255,6 @@ TEST(GraphMatrixTest, GetNeighbors) {
     g.addEdge(1, 4);
 
     std::list<int> neighbors = g.getNeighbors(0);
-    g.printGraph();
 
     EXPECT_EQ(neighbors.size(), 2);
     EXPECT_TRUE(std::find(neighbors.begin(), neighbors.end(), 1) != neighbors.end());
@@ -275,6 +274,27 @@ TEST(GraphListTest, GetNeighbors){
     EXPECT_TRUE(std::find(neighbors.begin(), neighbors.end(), 2) != neighbors.end());
 }
 
+TEST(GraphListTest, canReach){
+    graph::GraphList g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+    EXPECT_TRUE(g.canReach(0,1));
+    EXPECT_TRUE(g.canReach(0,4));
+    EXPECT_FALSE(g.canReach(4,0));
+}
+
+TEST(GraphMatrixTest, canReach){
+    graph::GraphMatrix g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+    EXPECT_TRUE(g.canReach(0,1));
+    EXPECT_TRUE(g.canReach(0,4));
+    EXPECT_FALSE(g.canReach(4,0));
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
