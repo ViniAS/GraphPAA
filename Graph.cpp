@@ -7,6 +7,7 @@
 #include <stack>
 #include <queue>
 #include "Graph.h"
+#include <limits>
 
 namespace graph {
     Graph::Graph(int numVertices): numVertices(numVertices),
@@ -231,6 +232,49 @@ namespace graph {
                 postOrder[v] = postCounter++;
             }
 
+        }
+    }
+
+    void Graph::minDistanceDag(int *distance, int * parent) const {
+        for(int i = 0; i< getNumVertices(); i++) {
+            distance[i] = std::numeric_limits<int>::max();
+            parent[i] = -1;
+        }
+        std::stack<int> vertexStack;
+        distance[0] = 0;
+
+        for(int v1=0; v1<getNumVertices(); v1++){
+            for( int v2: getNeighbors(v1)){
+                if(distance[v1]+1<distance[v2]){
+                    parent[v2] = v1;
+                    distance[v2] = v1+1;
+                }
+            }
+        }
+
+    }
+
+    void Graph::minDistanceBFS(int v,int * distance) const{
+        std::queue<int> vertexQueue;
+        int parent[getNumVertices()];
+        for (int i=0; i< getNumVertices(); i++){
+            distance[i] = -1;
+            parent[i] = -1;
+        }
+        parent[v] = v;
+        distance[v] = 0;
+        vertexQueue.push(v);
+
+        while (!vertexQueue.empty()){
+            int v1 = vertexQueue.front();
+            vertexQueue.pop();
+            for (int v2: getNeighbors(v1)){
+                if (distance[v2] == -1){
+                    parent[v2] = v1;
+                    distance[v2] = distance[v1] + 1;
+                    vertexQueue.push(v2);
+                }
+            }
         }
     }
 } // graph
