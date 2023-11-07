@@ -195,4 +195,42 @@ namespace graph {
             }
         }
     }
+
+    void Graph::dfsRecursive(int v, int *preOrder, int *postOrder) const {
+        for(int i=0; i< getNumVertices(); i++){
+            preOrder[i] = -1;
+            postOrder[i] = -1;
+        }
+        std::stack<int> stackVertex;
+        stackVertex.push(v);
+        int preCounter = 0;
+        int postCounter = 0;
+        while (!stackVertex.empty()){
+            v = stackVertex.top();
+
+            if (preOrder[v] == -1) {
+                preOrder[v] = preCounter++;
+                for (int x: getNeighbors(v)) {
+                    if (preOrder[x] == -1) {
+                        std::cout<<("(%d,%d) Tree branch",v,x)<<std::endl;
+                        stackVertex.push(x);
+                    } else {
+                        if (postOrder[x] == -1)
+                            std::cout<<("(%d,%d) Return",v,x)<<std::endl;
+                        else{
+                            if (preOrder[x] > preOrder[v])
+                                std::cout<<("(%d,%d) Forward",v,x)<<std::endl;
+                            else
+                                std::cout<<("(%d,%d) Cross",v,x)<<std::endl;
+                        }
+                    }
+                }
+            }
+            else{
+                stackVertex.pop();
+                postOrder[v] = postCounter++;
+            }
+
+        }
+    }
 } // graph

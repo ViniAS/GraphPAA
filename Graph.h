@@ -59,6 +59,8 @@ namespace graph {
         [[nodiscard]] bool hasCycle() const;
 
         void bfs(int v, int * order, int * parent) const;
+
+        void dfsRecursive(int v, int * preOrder, int * postOrder) const;
     };
 
 
