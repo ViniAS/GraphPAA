@@ -16,5 +16,7 @@ add_executable(GraphPAA main.cpp
         GraphMatrix.h
         GraphList.cpp
         GraphList.h
+        GraphListWeighted.cpp
+        GraphListWeighted.h
 )
 target_link_libraries(GraphPAA gtest gtest_main)

@@ -8,7 +8,7 @@
 namespace graph {
 
     class GraphList: public Graph{
-    private:
+    protected:
         std::list<int> *adjLists;
     public:
         explicit GraphList(int numVertices);

@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 #include "GraphList.h"
 #include "GraphMatrix.h"
+#include "GraphListWeighted.h"
 #include <list>
 using namespace graph;
 
@@ -409,6 +410,81 @@ TEST(GraphListTest, BFS) {
     int expectedParent[5] = {0, 0, 0, 1, 2};
     for (int i = 0; i < 5; i++) {
         EXPECT_EQ(order[i], expectedOrder[i]);
+        EXPECT_EQ(parent[i], expectedParent[i]);
+    }
+}
+
+TEST(GraphList, minDistanceBFS){
+    graph::GraphList g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+    int distance[5];
+    g.minDistanceBFS(0, distance);
+    int expectedDistance[5] = {0, 1, 1, 2, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(distance[i], expectedDistance[i]);
+    }
+}
+
+TEST(GraphMatrix, minDistanceBFS){
+    graph::GraphMatrix g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+    int distance[5];
+    g.minDistanceBFS(0, distance);
+    int expectedDistance[5] = {0, 1, 1, 2, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(distance[i], expectedDistance[i]);
+    }
+}
+
+TEST(GraphList, minDistanceDag){
+    graph::GraphList g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+    int distance[5];
+    int parent[5];
+    g.minDistanceDag(distance, parent);
+    int expectedDistance[5] = {0, 1, 1, 2, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(distance[i], expectedDistance[i]);
+    }
+}
+
+TEST(GraphMatrix, minDistanceDag){
+    graph::GraphMatrix g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+    int distance[5];
+    int parent[5];
+    g.minDistanceDag(distance, parent);
+    int expectedDistance[5] = {0, 1, 1, 2, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(distance[i], expectedDistance[i]);
+    }
+}
+
+TEST(GraphListWeighted, BellmanFord){
+    graph::GraphListWeighted g(5);
+    g.addEdge(0, 1, 1);
+    g.addEdge(0, 2, 2);
+    g.addEdge(1, 3, 3);
+    g.addEdge(2, 4, 4);
+    float distance[5];
+    int parent[5];
+    g.BellmanFord(0, distance, parent);
+    float expectedDistance[5] = {0, 1, 2, 4, 6};
+    int expectedParent[5] = {0, 0, 0, 1, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(distance[i], expectedDistance[i]);
         EXPECT_EQ(parent[i], expectedParent[i]);
     }
 }

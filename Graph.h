@@ -59,6 +59,12 @@ namespace graph {
         [[nodiscard]] bool hasCycle() const;
 
         void bfs(int v, int * order, int * parent) const;
+
+        void dfsRecursive(int v, int * preOrder, int * postOrder) const;
+
+        void minDistanceDag(int * distance, int * parent) const;
+
+        void minDistanceBFS(int v,int * distance) const;
     };
 
 
