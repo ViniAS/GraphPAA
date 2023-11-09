@@ -10,13 +10,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 add_executable(GraphPAA main.cpp
-        Graph.cpp
-        Graph.h
-        GraphMatrix.cpp
-        GraphMatrix.h
-        GraphList.cpp
-        GraphList.h
-        GraphListWeighted.cpp
-        GraphListWeighted.h
+        Graphs/Graph.cpp
+        Graphs/Graph.h
+        Graphs/GraphMatrix.cpp
+        Graphs/GraphMatrix.h
+        Graphs/GraphList.cpp
+        Graphs/GraphList.h
+        Graphs/GraphListWeighted.cpp
+        Graphs/GraphListWeighted.h
 )
 target_link_libraries(GraphPAA gtest gtest_main)
