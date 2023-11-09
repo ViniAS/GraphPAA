@@ -33,7 +33,7 @@ Se a compilação for bem sucedida, você poderá executar o projeto com o segui
 
 ## Estrutura do projeto
 
-O projeto está dividido em 7 arquivos principais:
+O projeto está dividido em 9 arquivos principais:
 
 main.cpp: Arquivo de testes do projeto, onde é feito os testes de execução dos algoritmos.
 
@@ -48,3 +48,7 @@ GraphList.h: Arquivo onde é definido a classe GraphList.
 GraphMatrix.cpp: Arquivo onde é implementado a estrutura de grafo utilizando matriz de adjacência.
 
 GraphMatrix.h: Arquivo onde é definido a classe GraphMatrix.
+
+GraphListWeighted.cpp: Arquivo onde é implementado a estrutura de grafo com pesos utilizando listas de adjacência.
+
+GraphList.h: Arquivo onde é definido a classe GraphListWeighted.
