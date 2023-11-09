@@ -1,8 +1,8 @@
 #include <iostream>
 #include <gtest/gtest.h>
-#include "GraphList.h"
-#include "GraphMatrix.h"
-#include "GraphListWeighted.h"
+#include "Graphs/GraphList.h"
+#include "Graphs/GraphMatrix.h"
+#include "Graphs/GraphListWeighted.h"
 #include <list>
 using namespace graph;
 
