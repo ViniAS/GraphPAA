@@ -73,4 +73,5 @@ namespace graph {
     bool** GraphMatrix::getAdjMatrix() const {
         return adjMatrix;
     }
+
 } // graph
