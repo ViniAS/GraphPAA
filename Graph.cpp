@@ -247,7 +247,7 @@ namespace graph {
             for( int v2: getNeighbors(v1)){
                 if(distance[v1]+1<distance[v2]){
                     parent[v2] = v1;
-                    distance[v2] = v1+1;
+                    distance[v2] = distance[v1]+1;
                 }
             }
         }

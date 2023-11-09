@@ -441,6 +441,35 @@ TEST(GraphMatrix, minDistanceBFS){
     }
 }
 
+TEST(GraphList, minDistanceDag){
+    graph::GraphList g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+    int distance[5];
+    int parent[5];
+    g.minDistanceDag(distance, parent);
+    int expectedDistance[5] = {0, 1, 1, 2, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(distance[i], expectedDistance[i]);
+    }
+}
+
+TEST(GraphMatrix, minDistanceDag){
+    graph::GraphMatrix g(5);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+    int distance[5];
+    int parent[5];
+    g.minDistanceDag(distance, parent);
+    int expectedDistance[5] = {0, 1, 1, 2, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(distance[i], expectedDistance[i]);
+    }
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
