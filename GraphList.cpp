@@ -15,6 +15,9 @@ namespace graph {
     }
 
     GraphList::~GraphList() {
+        for (int i = 0; i < getNumVertices(); ++i) {
+            delete & adjLists[i];
+        }
         delete[] adjLists;
     }
 

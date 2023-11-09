@@ -11,7 +11,7 @@ namespace graph {
 
     class GraphListWeighted: public GraphList{
     private:
-        std::list<int> *weights;
+        std::list<float> *weights;
     public:
         explicit GraphListWeighted(int numVertices);
 
@@ -19,11 +19,13 @@ namespace graph {
 
         bool addEdge(int v1, int v2) override;
 
-        bool addEdge(int v1, int v2, int weight);
+        bool addEdge(int v1, int v2, float weight);
 
         bool removeEdge(int v1, int v2) override;
 
-        [[nodiscard]] std::list<int> *getWeights() const;
+        [[nodiscard]] std::list<float> *getWeights() const;
+
+        bool BellmanFord(int s, float *dist, int *parents) const;
     };
 
 } // graph
