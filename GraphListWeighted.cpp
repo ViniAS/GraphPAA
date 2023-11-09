@@ -11,9 +11,6 @@ namespace graph {
     }
 
     GraphListWeighted::~GraphListWeighted() {
-        for (int i = 0; i < getNumVertices(); ++i) {
-            delete & weights[i];
-        }
         delete[] weights;
     }
 
@@ -60,7 +57,7 @@ namespace graph {
             parents[i] = -1;
         }
         dist[s] = 0;
-
+        parents[s] = s;
         for(int i = 1; i <= getNumVertices()-1; i++){
             for(int v = 0; v < getNumVertices(); v++) {
                 auto itWeight = weights[v].begin();
