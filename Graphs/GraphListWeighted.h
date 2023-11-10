@@ -26,6 +26,8 @@ namespace graph {
         [[nodiscard]] std::list<float> *getWeights() const;
 
         bool BellmanFord(int s, float *dist, int *parents) const;
+
+        void Dijkstra(int s, float *dist, int *parents) const;
     };
 
 } // graph

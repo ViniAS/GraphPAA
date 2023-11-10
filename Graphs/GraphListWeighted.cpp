@@ -4,6 +4,8 @@
 
 #include "GraphListWeighted.h"
 #include <limits>
+#include <queue>
+
 
 namespace graph {
     GraphListWeighted::GraphListWeighted(int numVertices) : GraphList(numVertices){
@@ -77,5 +79,37 @@ namespace graph {
                 if (dist[v] + *itWeight < dist[*itAdj]) return false;
         }
         return true;
+    }
+
+    void GraphListWeighted::Dijkstra(int s, float *dist, int *parents) const {
+        bool *checked = new bool[numVertices];
+        for (int i = 0; i < numVertices; ++i) {
+            dist[i] = std::numeric_limits<float>::infinity();
+            parents[i] = -1;
+            checked[i] = false;
+        }
+        dist[s] = 0;
+        parents[s] = s;
+        std::priority_queue<std::pair<float, int>,
+                std::vector<std::pair<float, int>>, std::greater<>> heap;
+        heap.emplace(0, s);
+
+        while(!heap.empty()) {
+            int v = heap.top().second;
+            heap.pop();
+            if (dist[v] == std::numeric_limits<float>::infinity()) break;
+            auto itWeight = weights[v].begin();
+            auto itAdj = adjLists[v].begin();
+            for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); itWeight++, itAdj++){
+                if (!checked[*itAdj]) {
+                    if (dist[v] + *itWeight < dist[*itAdj]) {
+                        dist[*itAdj] = dist[v] + *itWeight;
+                        parents[*itAdj] = v;
+                        heap.emplace(dist[*itAdj], *itAdj);
+                    }
+                }
+            }
+            checked[v] = true;
+        }
     }
 } // graph

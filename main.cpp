@@ -476,11 +476,29 @@ TEST(GraphListWeighted, BellmanFord){
     graph::GraphListWeighted g(5);
     g.addEdge(0, 1, 1);
     g.addEdge(0, 2, 2);
+    g.addEdge(1, 3, -5);
+    g.addEdge(2, 4, 4);
+    g.addEdge(3,2,3);
+    float distance[5];
+    int parent[5];
+    g.BellmanFord(0, distance, parent);
+    float expectedDistance[5] = {0, 1, -1, -4, 3};
+    int expectedParent[5] = {0, 0, 3, 1, 2};
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(distance[i], expectedDistance[i]);
+        EXPECT_EQ(parent[i], expectedParent[i]);
+    }
+}
+
+TEST(GraphListWeighted, Dijkstra){
+    graph::GraphListWeighted g(5);
+    g.addEdge(0, 1, 1);
+    g.addEdge(0, 2, 2);
     g.addEdge(1, 3, 3);
     g.addEdge(2, 4, 4);
     float distance[5];
     int parent[5];
-    g.BellmanFord(0, distance, parent);
+    g.Dijkstra(0, distance, parent);
     float expectedDistance[5] = {0, 1, 2, 4, 6};
     int expectedParent[5] = {0, 0, 0, 1, 2};
     for (int i = 0; i < 5; i++) {
@@ -488,7 +506,6 @@ TEST(GraphListWeighted, BellmanFord){
         EXPECT_EQ(parent[i], expectedParent[i]);
     }
 }
-
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
