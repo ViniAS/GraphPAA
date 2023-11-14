@@ -560,7 +560,7 @@ TEST(GraphListWeighted, kruksal) {
     g.addEdge(4,5,7);
     g.addEdge(5,4,7);
 
-    auto edges = g.Kruksal();
+    auto const edges = g.Kruksal();
     std::vector<std::tuple<float,int,int>> expectedEdges;
     expectedEdges.emplace_back(1,2,5);
     expectedEdges.emplace_back(2,0,1);

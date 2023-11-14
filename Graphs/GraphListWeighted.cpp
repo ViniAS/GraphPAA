@@ -158,7 +158,8 @@ namespace graph {
             auto itWeight = weights[v].begin();
             auto itAdj = adjLists[v].begin();
             for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); ++itWeight, ++itAdj)
-                heap.emplace(*itWeight, v, *itAdj);
+                if(v<*itAdj)
+                    heap.emplace(*itWeight, v, *itAdj);
         }
         int i = 0;
         while(!heap.empty()) {
