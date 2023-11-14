@@ -5,7 +5,8 @@
 #include "GraphListWeighted.h"
 #include <limits>
 #include <queue>
-
+#include <tuple>
+#include "../UnionFind.h"
 
 namespace graph {
     GraphListWeighted::GraphListWeighted(int const numVertices) : GraphList(numVertices){
@@ -146,5 +147,30 @@ namespace graph {
         delete[] checked;
         delete[] dist;
     }
+
+    std::vector<std::tuple<float,int,int>> GraphListWeighted::Kruksal() const {
+        UnionFind uf(numVertices);
+        std::priority_queue<std::tuple<float, int, int>,
+                std::vector<std::tuple<float, int, int>>, std::greater<>> heap;
+        std::vector<std::tuple<float,int,int>> edges;
+
+        for (int v = 0; v < numVertices; ++v) {
+            auto itWeight = weights[v].begin();
+            auto itAdj = adjLists[v].begin();
+            for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); ++itWeight, ++itAdj)
+                heap.emplace(*itWeight, v, *itAdj);
+        }
+        int i = 0;
+        while(!heap.empty()) {
+            auto const [weight, v1, v2] = heap.top();
+            heap.pop();
+            if (uf.find(v1) != uf.find(v2)) {
+                uf.unite(v1, v2);
+                edges.emplace_back(weight, v1, v2);
+            }
+        }
+        return edges;
+    }
+
 
 } // graph

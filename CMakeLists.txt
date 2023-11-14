@@ -18,5 +18,7 @@ add_executable(GraphPAA main.cpp
         Graphs/GraphList.h
         Graphs/GraphListWeighted.cpp
         Graphs/GraphListWeighted.h
+        UnionFind.cpp
+        UnionFind.h
 )
 target_link_libraries(GraphPAA gtest gtest_main)

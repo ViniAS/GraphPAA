@@ -30,6 +30,8 @@ namespace graph {
         void Dijkstra(int s, float *dist, int *parents) const;
 
         void MSTHeap(int s, int *parents) const;
+
+        [[nodiscard]] std::vector<std::tuple<float,int,int>>  Kruksal() const;
     };
 
 } // graph
