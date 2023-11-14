@@ -48,7 +48,7 @@ namespace graph {
 
         [[nodiscard]] bool isPath(const int path[], int n, bool & hasCycle) const;
 
-        [[nodiscard]] bool isSubGraph(Graph &g) const;
+        [[nodiscard]] bool isSubGraph(Graph const &g) const;
 
         void dfs(int * preOrder, int* postOrder,int * parents) const;
 

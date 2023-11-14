@@ -10,7 +10,7 @@
 #include <vector>
 #include "Graph.h"
 namespace graph {
-    GraphList::GraphList(int numVertices) : Graph(numVertices){
+    GraphList::GraphList(int const numVertices) : Graph(numVertices){
         adjLists = new std::list<int>[numVertices];
     }
 
@@ -18,7 +18,7 @@ namespace graph {
         delete[] adjLists;
     }
 
-    bool GraphList::addEdge(int v1, int v2) {
+    bool GraphList::addEdge(int const v1, int const v2) {
         for (auto x: adjLists[v1])
             if (x == v2) return false;
 
@@ -27,13 +27,13 @@ namespace graph {
         return true;
     }
 
-    bool GraphList::hasEdge(int v1, int v2) const {
+    bool GraphList::hasEdge(int const v1, int const v2) const {
         return std::any_of(adjLists[v1].begin(), adjLists[v1].end(),
-                           [v2](int x) { return x == v2; });
+                           [v2](int const x) { return x == v2; });
     }
 
-    bool GraphList::removeEdge(int v1, int v2) {
-        unsigned long initSize = adjLists[v1].size();
+    bool GraphList::removeEdge(int const v1, int const v2) {
+        unsigned long const initSize = adjLists[v1].size();
         adjLists[v1].remove(v2);
 
         if(initSize != adjLists[v1].size()){
@@ -47,18 +47,18 @@ namespace graph {
         for (int v = 0; v < numVertices; ++v){
             std::cout << "Adjacency list of vertex "
                       << v << "\n head";
-            for (auto x: adjLists[v]){
+            for (auto const x: adjLists[v]){
                 std::cout << "->" << x;
             }
             std::cout << std::endl;
         }
     }
 
-    std::list<int> GraphList::getNeighbors(int v)  const {
+    std::list<int> GraphList::getNeighbors(int const v)  const {
         return adjLists[v];
     }
 
-    unsigned long GraphList::getDegree(int v) const {
+    unsigned long GraphList::getDegree(int const v) const {
         return getNeighbors(v).size();
     }
 

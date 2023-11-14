@@ -10,7 +10,7 @@
 #include <limits>
 
 namespace graph {
-    Graph::Graph(int numVertices): numVertices(numVertices),
+    Graph::Graph(int const numVertices): numVertices(numVertices),
     numEdges(0){}
 
     int Graph::getNumVertices() const {
@@ -51,7 +51,7 @@ namespace graph {
         return true;
     }
     
-    bool Graph::isSubGraph(Graph &g) const {
+    bool Graph::isSubGraph(Graph const &g) const {
         if (g.getNumVertices() > numVertices) {
             return false;
         }
@@ -65,7 +65,7 @@ namespace graph {
         return true;
     }
 
-    bool Graph::isPath(const int *path, int n, bool & hasCycle) const {
+    bool Graph::isPath(const int *path, int const n, bool & hasCycle) const {
         if (n < 2) return false;
         bool visited[getNumVertices()];
         bool noCycle = true;
@@ -104,7 +104,7 @@ namespace graph {
         }
     }
 
-    void Graph::dfsVisit(int v1, int *preOrder, int * postOrder,
+    void Graph::dfsVisit(const int v1, int *preOrder, int * postOrder,
                              int & preCounter, int & postCounter, int * parents) const {
         std::stack<int> stackVertex;
         stackVertex.push(v1);
@@ -130,7 +130,7 @@ namespace graph {
         }
     }
 
-    bool Graph::canReach(int v1, int v2) const {
+    bool Graph::canReach(int const v1, int const v2) const {
         bool visited[getNumVertices()];
         for (int v=0; v < getNumVertices(); v++) visited[v] = false;
 
@@ -138,7 +138,7 @@ namespace graph {
         return visited[v2];
     }
 
-    void Graph::reachRecursive(int v1, bool *visited) const {
+    void Graph::reachRecursive(int const v1, bool *visited) const {
         std::stack<int> stackVertex;
         stackVertex.push(v1);
         int v;
@@ -153,7 +153,7 @@ namespace graph {
 
     bool Graph::isTopological() const {
         for (int i = 0; i < getNumVertices(); i++) {
-            for (int x: getNeighbors(i))
+            for (int const x: getNeighbors(i))
                 if (x < i) return false;
         }
         return true;
@@ -173,7 +173,7 @@ namespace graph {
         return false;
    }
 
-    void Graph::bfs(int v, int *order, int *parent) const {
+    void Graph::bfs(int const v, int *order, int *parent) const {
         std::queue<int> vertexQueue;
         int counter = 0;
         for (int i=0; i< getNumVertices(); i++){
@@ -185,7 +185,7 @@ namespace graph {
         vertexQueue.push(v);
 
         while (!vertexQueue.empty()){
-            int v1 = vertexQueue.front();
+            int const v1 = vertexQueue.front();
             vertexQueue.pop();
             for (int v2: getNeighbors(v1)){
                 if (order[v2] == -1){
@@ -244,7 +244,7 @@ namespace graph {
         distance[0] = 0;
 
         for(int v1=0; v1<getNumVertices(); v1++){
-            for( int v2: getNeighbors(v1)){
+            for(const int v2: getNeighbors(v1)){
                 if(distance[v1]+1<distance[v2]){
                     parent[v2] = v1;
                     distance[v2] = distance[v1]+1;
@@ -254,7 +254,7 @@ namespace graph {
 
     }
 
-    void Graph::minDistanceBFS(int v,int * distance) const{
+    void Graph::minDistanceBFS(int const v,int * distance) const{
         std::queue<int> vertexQueue;
         int parent[getNumVertices()];
         for (int i=0; i< getNumVertices(); i++){
@@ -266,7 +266,7 @@ namespace graph {
         vertexQueue.push(v);
 
         while (!vertexQueue.empty()){
-            int v1 = vertexQueue.front();
+            int const v1 = vertexQueue.front();
             vertexQueue.pop();
             for (int v2: getNeighbors(v1)){
                 if (distance[v2] == -1){

@@ -7,7 +7,7 @@
 #include <list>
 
 namespace graph {
-    GraphMatrix::GraphMatrix(int numVertices) :Graph(numVertices),
+    GraphMatrix::GraphMatrix(int const numVertices) :Graph(numVertices),
     adjMatrix(nullptr) {
         adjMatrix = new bool*[numVertices];
         for (int i=0; i<numVertices;i++){
@@ -23,11 +23,11 @@ namespace graph {
         delete [] adjMatrix;
     }
 
-    bool GraphMatrix::hasEdge(int v1, int v2) const {
+    bool GraphMatrix::hasEdge(int const v1, int const v2) const {
         return adjMatrix[v1][v2];
     }
 
-    bool GraphMatrix::addEdge(int v1, int v2) {
+    bool GraphMatrix::addEdge(int const v1, int const v2) {
         if (!hasEdge(v1,v2)) {
             adjMatrix[v1][v2]  = true;
             numEdges++;
@@ -36,7 +36,7 @@ namespace graph {
         return false;
     }
 
-    bool GraphMatrix::removeEdge(int v1, int v2) {
+    bool GraphMatrix::removeEdge(int const v1, int const v2) {
         if(hasEdge(v1,v2)) {
             adjMatrix[v1][v2] = false;
             numEdges--;
@@ -54,7 +54,7 @@ namespace graph {
         }
     }
 
-    std::list<int> GraphMatrix::getNeighbors(int v) const{
+    std::list<int> GraphMatrix::getNeighbors(int const v) const{
         std::list<int> neighbors;
         for(int i=0; i < numVertices; i++){
             if(adjMatrix[v][i]) neighbors.push_back(i);
@@ -62,7 +62,7 @@ namespace graph {
         return neighbors;
     }
 
-    unsigned long GraphMatrix::getDegree(int v) const {
+    unsigned long GraphMatrix::getDegree(int const v) const {
         unsigned long degree = 0;
         for (int i=0; i < numVertices; i++){
             if (adjMatrix[v][i]) degree++;

@@ -8,7 +8,7 @@
 
 
 namespace graph {
-    GraphListWeighted::GraphListWeighted(int numVertices) : GraphList(numVertices){
+    GraphListWeighted::GraphListWeighted(int const numVertices) : GraphList(numVertices){
         weights = new std::list<float>[numVertices];
     }
 
@@ -16,7 +16,7 @@ namespace graph {
         delete[] weights;
     }
 
-    bool GraphListWeighted::addEdge(int v1, int v2, float weight) {
+    bool GraphListWeighted::addEdge(int const v1, int const v2, float const weight) {
         for (auto x: adjLists[v1])
             if (x == v2) return false;
 
@@ -26,12 +26,12 @@ namespace graph {
         return true;
     }
 
-    bool GraphListWeighted::addEdge(int v1, int v2){
+    bool GraphListWeighted::addEdge(int const v1, int const v2){
         return addEdge(v1, v2, 1);
     }
 
 
-    bool GraphListWeighted::removeEdge(int v1, int v2) {
+    bool GraphListWeighted::removeEdge(int const v1, int const v2) {
         unsigned long initSize = adjLists[v1].size();
         auto itAdj = adjLists[v1].begin();
         auto itWeight = weights[v1].begin();
@@ -43,8 +43,8 @@ namespace graph {
                 numEdges--;
                 return true;
             }
-            itAdj++;
-            itWeight++;
+            ++itAdj;
+            ++itWeight;
         }
         return false;
     }
@@ -53,7 +53,7 @@ namespace graph {
         return weights;
     }
 
-    bool GraphListWeighted::BellmanFord(int s, float *dist, int *parents) const {
+    bool GraphListWeighted::BellmanFord(int const s, float *dist, int *parents) const {
         for (int i = 0; i < numVertices; ++i) {
             dist[i] = std::numeric_limits<float>::infinity();
             parents[i] = -1;
@@ -64,7 +64,7 @@ namespace graph {
             for(int v = 0; v < getNumVertices(); v++) {
                 auto itWeight = weights[v].begin();
                 auto itAdj = adjLists[v].begin();
-                for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); itWeight++, itAdj++) {
+                for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); ++itWeight, ++itAdj) {
                     if (dist[v] + *itWeight < dist[*itAdj]) {
                         dist[*itAdj] = dist[v] + *itWeight;
                         parents[*itAdj] = v;
@@ -75,7 +75,7 @@ namespace graph {
         for(int v = 0; v < getNumVertices(); v++) {
             auto itWeight = weights[v].begin();
             auto itAdj = adjLists[v].begin();
-            for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); itWeight++, itAdj++)
+            for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); ++itWeight, ++itAdj)
                 if (dist[v] + *itWeight < dist[*itAdj]) return false;
         }
         return true;
@@ -100,7 +100,7 @@ namespace graph {
             if (dist[v] == std::numeric_limits<float>::infinity()) break;
             auto itWeight = weights[v].begin();
             auto itAdj = adjLists[v].begin();
-            for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); itWeight++, itAdj++){
+            for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); ++itWeight, ++itAdj){
                 if (!checked[*itAdj]) {
                     if (dist[v] + *itWeight < dist[*itAdj]) {
                         dist[*itAdj] = dist[v] + *itWeight;
@@ -111,5 +111,6 @@ namespace graph {
             }
             checked[v] = true;
         }
+        delete[] checked;
     }
 } // graph
