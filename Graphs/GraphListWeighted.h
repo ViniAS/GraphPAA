@@ -28,6 +28,8 @@ namespace graph {
         bool BellmanFord(int s, float *dist, int *parents) const;
 
         void Dijkstra(int s, float *dist, int *parents) const;
+
+        void MSTHeap(int s, int *parents) const;
     };
 
 } // graph

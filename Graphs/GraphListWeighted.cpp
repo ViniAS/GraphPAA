@@ -95,7 +95,7 @@ namespace graph {
         heap.emplace(0, s);
 
         while(!heap.empty()) {
-            int v = heap.top().second;
+            int const v = heap.top().second;
             heap.pop();
             if (dist[v] == std::numeric_limits<float>::infinity()) break;
             auto itWeight = weights[v].begin();
@@ -113,4 +113,38 @@ namespace graph {
         }
         delete[] checked;
     }
+
+    void GraphListWeighted::MSTHeap(int s, int* parents) const {
+        bool *checked = new bool[numVertices];
+        float *dist = new float[numVertices];
+        for (int i = 0; i < numVertices; ++i) {
+            parents[i] = -1;
+            checked[i] = false;
+            dist[i] = std::numeric_limits<float>::infinity();
+        }
+        parents[s] = s;
+        dist[s] = 0;
+        std::priority_queue<std::pair<float, int>,
+                std::vector<std::pair<float, int>>, std::greater<>> heap;
+        heap.emplace(0, s);
+
+        while(!heap.empty()) {
+            int const v = heap.top().second;
+            heap.pop();
+            if (dist[v]==std::numeric_limits<float>::infinity()) break;
+            checked[v] = true;
+            auto itWeight = weights[v].begin();
+            auto itAdj = adjLists[v].begin();
+            for (; itAdj != adjLists[v].end() && itWeight != weights[v].end(); ++itWeight, ++itAdj){
+                if (!checked[*itAdj] && *itWeight < dist[*itAdj]) {
+                    dist[*itAdj] = *itWeight;
+                    parents[*itAdj] = v;
+                    heap.emplace(*itWeight, *itAdj);
+                }
+            }
+        }
+        delete[] checked;
+        delete[] dist;
+    }
+
 } // graph
