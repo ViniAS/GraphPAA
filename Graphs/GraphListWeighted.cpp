@@ -133,6 +133,7 @@ namespace graph {
             int const v = heap.top().second;
             heap.pop();
             if (dist[v]==std::numeric_limits<float>::infinity()) break;
+            if(checked[v]) continue;
             checked[v] = true;
             auto itWeight = weights[v].begin();
             auto itAdj = adjLists[v].begin();
